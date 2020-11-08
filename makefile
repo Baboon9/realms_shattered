@@ -3,7 +3,7 @@ LDFLAGS  =
 PROG = realms_shattered
 CXX = g++
 
-DIRS =  src/engine_systems/*.cpp  src/entities/*.cpp   src/game_state/*.cpp   src/platform/*.cpp 
+DIRS =  src/engine_systems/*.cpp  src/entities/*.cpp   src/game_state/*.cpp   src/platform/*.cpp src/objects/*.cpp 
 # top-level rule to create the program.
 all: $(PROG)
 
