@@ -50,6 +50,16 @@ const bool console_title_set_linux( const std::string &console_title );
 */
 const bool get_file_list_linux( std::vector <std::string> &file_list, const std::string &file_path );
 
-#endif // _WIN32
+/*
+ * Create a folder under the folder_path.
+ */
+void folder_create_linux( const std::string folder_path );
+
+/*
+ * Check if the folder under the folder_path exist. Return true if so.
+ */
+const bool folder_exists_check_linux( const std::string folder_path );
+
+#endif // __LINUX__
 
 #endif // _PLATFORM_LINUX_HPP_

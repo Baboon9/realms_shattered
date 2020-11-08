@@ -4,6 +4,9 @@
 
 #ifdef __linux__
 #include <dirent.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <bits/stdc++.h>
 
 const std::string working_directory_get_linux()
 {
@@ -63,4 +66,21 @@ const bool get_file_list_linux( std::vector <std::string> &file_list, const std:
    return true;
 }
 
+void folder_create_linux( const std::string folder_path )
+{
+   if( mkdir( folder_path.c_str(), 0777) == -1) {
+     Logger( LoggerLevel::LOG_LEVEL_ERROR ).log() << "folder_create_linux() failed to create a folder.";
+   }
+}
+
+
+const bool folder_exists_check_linux( const std::string folder_path )
+{
+   DIR * dir = opendir( folder_path.c_str() );
+   if(dir) {
+     return true;
+   } else {
+     return false;
+   }
+}
 #endif // __linux__

@@ -99,6 +99,10 @@ void folder_create_platform( const std::string &folder_path )
    #ifdef _WIN32
       folder_create_win32( folder_path );
    #endif // _WIN32
+
+   #ifdef __linux__
+      folder_create_linux( folder_path );
+   #endif // __linux__
 }
 
 const bool folder_exists_check( const std::string &folder_path )
@@ -106,6 +110,10 @@ const bool folder_exists_check( const std::string &folder_path )
    #ifdef _WIN32
       return folder_exists_check_win32( folder_path );
    #endif // _WIN32
+
+   #ifdef __linux__
+      return folder_exists_check_linux( folder_path );
+   #endif // __linux__
 
    return false;
 }
