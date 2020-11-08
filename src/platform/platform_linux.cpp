@@ -42,7 +42,7 @@ void console_pause_linux()
    system( "read -rsp $'Press any key to continue . . .\n'" );
 }
 
-void get_file_list_linux( std::vector <std::string> &file_list, const std::string &file_path )
+const bool get_file_list_linux( std::vector <std::string> &file_list, const std::string &file_path )
 {
    DIR * dir = opendir( "/save" );
    struct dirent *entry;
@@ -50,16 +50,17 @@ void get_file_list_linux( std::vector <std::string> &file_list, const std::strin
       Logger( LoggerLevel::LOG_LEVEL_ERROR ).log() << "get_file_list_linux() failed to find file in: " << file_path;
       return false;
    } else {
-      std::string filename;
+      std::string file_name;
       while( ( entry = readdir( dir ) ) != NULL) {
-         filename = entry->d_name;
+         file_name = entry->d_name;
          if( file_name.length() > 3 && file_name.find( ".txt" ) ) {
-            saved_files.push_back( filename );
+            file_list.push_back( file_name );
          }
       }
    }
 
    closedir( dir );
+   return true;
 }
 
 #endif // __linux__
