@@ -88,10 +88,8 @@ const bool get_file_list( std::vector <std::string> &file_list, const std::strin
    #endif // _WIN32
 
    #ifdef __linux__
-      get_file_list_linux( file_list, file_path );
+      return get_file_list_linux( file_list, file_path );
    #endif // __linux__
-
-   return false;
 }
 
 void folder_create_platform( const std::string &folder_path )

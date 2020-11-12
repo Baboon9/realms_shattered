@@ -1,4 +1,4 @@
-CFLAGS   = -Wno-endif-labels
+CFLAGS   = -Wno-endif-labels -ggdb
 LDFLAGS  =
 PROG = realms_shattered
 CXX = g++

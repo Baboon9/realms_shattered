@@ -1,6 +1,7 @@
 
 #include "platform_linux.hpp"
 #include "../engine_systems/logger.hpp"
+#include <string>
 
 #ifdef __linux__
 #include <dirent.h>
@@ -11,7 +12,7 @@
 const std::string working_directory_get_linux()
 {
    std::string working_directory;
-   
+
    char buffer[ PATH_MAX ];
    getcwd( buffer, PATH_MAX );
    working_directory = buffer;
@@ -24,7 +25,7 @@ void console_buffer_dimensions_get_linux( int &console_buffer_width, int &consol
     // Obtain console size using ioctl.
    struct winsize screen_size;
    ioctl(STDOUT_FILENO, TIOCGWINSZ, &screen_size);
-  
+
    console_buffer_width = screen_size.ws_col;
    console_buffer_height = screen_size.ws_row;
 }
@@ -47,23 +48,29 @@ void console_pause_linux()
 
 const bool get_file_list_linux( std::vector <std::string> &file_list, const std::string &file_path )
 {
-   DIR * dir = opendir( "/save" );
+   DIR * dir = opendir( file_path.c_str() );
    struct dirent *entry;
    if( dir == NULL ) {
       Logger( LoggerLevel::LOG_LEVEL_ERROR ).log() << "get_file_list_linux() failed to find file in: " << file_path;
       return false;
    } else {
-      std::string file_name;
-      while( ( entry = readdir( dir ) ) != NULL) {
-         file_name = entry->d_name;
-         if( file_name.length() > 3 && file_name.find( ".txt" ) ) {
-            file_list.push_back( file_name );
+      bool file_found( false );
+      while(dir) {
+         if ( ( entry = readdir( dir ) ) != NULL ) {
+            if( strncmp( entry->d_name, ".", 2 ) == 0 || strncmp( entry->d_name, "..", 2 ) == 0) {
+               continue;
+            }
+            Logger( LoggerLevel::LOG_LEVEL_INFO ).log() << "get_file_list_linux found a file named: " << entry->d_name;
+            file_list.push_back( entry->d_name );
+            file_found = true;
+         } else {
+            closedir( dir );
+            return file_found;
+
          }
       }
    }
-
-   closedir( dir );
-   return true;
+   return false;
 }
 
 void folder_create_linux( const std::string folder_path )

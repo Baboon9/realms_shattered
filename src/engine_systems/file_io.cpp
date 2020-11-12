@@ -5,7 +5,7 @@
 
 #include "../entities/actor.hpp"
 #include "../platform/platform.hpp"
-  
+
 const ConfigFile FileIO::config_read()
 {
    ConfigFile config_file;
@@ -110,7 +110,7 @@ const bool FileIO::file_write( const std::string &file_contents, const std::stri
    } else {
       file_write_flag = std::ios::app;
    }
-   
+
    std::string file_path = working_directory_get() + "/" + file_name;
    std::ofstream file( file_path, file_write_flag );
    if( !file.is_open() ) {
@@ -133,7 +133,7 @@ const bool FileIO::file_write( const std::vector <std::string> &file_contents, c
    } else {
       file_write_flag = std::ios::app;
    }
-   
+
    std::string file_path = working_directory_get() + "/" + file_name;
    std::ofstream file( file_path, file_write_flag );
    if( !file.is_open() ) {
@@ -167,8 +167,8 @@ const bool FileIO::folder_exists( const std::string &folder_name )
 }
 
 const bool FileIO::player_files_find( std::vector<std::string> & dir_content )
-{   
-   return get_file_list( dir_content, working_directory_get() + "/save\\*" );
+{
+   return get_file_list( dir_content, working_directory_get() + "/save" );
 }
 
 const bool FileIO::player_file_load( GameData &game_data, const std::string &file_name )
@@ -177,7 +177,7 @@ const bool FileIO::player_file_load( GameData &game_data, const std::string &fil
    if( !file_tags_parse( file_contents, "/save/" + file_name ) ) {
       return false;
    }
-   
+
    std::map <std::string, std::string>::iterator file_contents_iterator( file_contents.begin() );
    std::map <std::string, std::string>::iterator file_contents_end( file_contents.end() );
    for( ; file_contents_iterator != file_contents_end; ++ file_contents_iterator ) {
