@@ -70,7 +70,7 @@ class Combat
         (*iter)->execute();
       }
 
-      if( m_player->is_alive_get() || m_enemy->is_alive_get() ) {
+      if( !m_player->is_alive_get() || !m_enemy->is_alive_get() ) {
         is_over = true;
       }
     }
@@ -124,7 +124,7 @@ void GameState::game_state_rift()
    Actor *player{ nullptr };
 
    bool rift_exists{ rift != nullptr };
-   bool room_not_empty{ rift->m_rooms[ rift->m_room_current ].m_entity_list.empty() };
+   bool room_not_empty{ !rift->m_rooms[ rift->m_room_current ].m_entity_list.empty() };
    if( rift_exists && room_not_empty ){
       //Check for existing enemy and populate enemy
       bool enemy_exists = m_game_data.actor_get( rift->m_rooms[ rift->m_room_current ].m_entity_list[ 0 ]->unique_id_get(), enemy );
@@ -163,7 +163,7 @@ void GameState::game_state_rift()
             int picked_command = rand() % 1;
             switch( picked_command ) {
               case 0 : combat->add_command(new Attack{ enemy, player });
-                       Logger( LoggerLevel::LOG_LEVEL_PROGRESS ) .log() << "New command added " << enemy->name_get() << " attacks " << player->name_get() ); 
+                       Logger( LoggerLevel::LOG_LEVEL_PROGRESS ) .log() << "New command added " << enemy->name_get() << " attacks " << player->name_get(); 
                        break;
               default : Logger( LoggerLevel::LOG_LEVEL_ERROR ).log() << "During combat: Enemys random command invalid"; 
             }
