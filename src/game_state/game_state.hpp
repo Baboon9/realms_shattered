@@ -11,6 +11,8 @@
 #include "../engine_systems/user_input.hpp"
 #include "../engine_systems/user_interface.hpp"
 
+class Combat;
+
 enum class GameStateEnum {
    GAME_STATE_DEV_MENU,
    GAME_STATE_HELP,
@@ -75,6 +77,13 @@ private:
    *  Here the player will explore generated rifts composed of rooms.
    */
    void game_state_rift();
+    
+   /*
+    * Redraw the screen and ask for user imput.
+    */
+   CommandTag redraw_and_get_input(const std::string NAME_RIFT_STATE, const std::string name_room);
+
+   void handle_input(CommandTag command_tag, Rift *rift, Combat *combat, Actor *player, Actor *enemy, const std::string name_room);
 };
 
 #endif // _GAME_STATE_HPP_
