@@ -60,6 +60,11 @@ void folder_create_linux( const std::string folder_path );
  */
 const bool folder_exists_check_linux( const std::string folder_path );
 
+/*
+ * Suspend program for x milliseconds.
+ */
+void console_sleep_linux ( int milliseconds );
+
 #endif // __LINUX__
 
 #endif // _PLATFORM_LINUX_HPP_

@@ -64,6 +64,11 @@ public:
    *  All printing done is also constrained within the bounds of the 'game screen'.
    */
    int print_formatted( const std::string &text, int position_x, int position_y, int width, int height );
+   
+   /*
+    * Suspends execution of program for at least x miliseconds
+    */
+   void sleep(int miliseconds);
 
 private:
    int m_print_offset_x;

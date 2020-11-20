@@ -36,6 +36,8 @@ public:
    */
    void run();
 
+   void redraw(const std::string NAME_RIFT_STATE, const std::string name_room);
+
 private:
    GameStateEnum m_game_state_current;
 
@@ -84,6 +86,8 @@ private:
    CommandTag redraw_and_get_input(const std::string NAME_RIFT_STATE, const std::string name_room);
 
    void handle_input(CommandTag command_tag, Rift *rift, Combat *combat, Actor *player, Actor *enemy, const std::string name_room);
+  
+
 };
 
 #endif // _GAME_STATE_HPP_

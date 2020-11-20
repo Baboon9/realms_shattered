@@ -8,6 +8,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <bits/stdc++.h>
+#include <unistd.h>
 
 const std::string working_directory_get_linux()
 {
@@ -89,5 +90,11 @@ const bool folder_exists_check_linux( const std::string folder_path )
    } else {
      return false;
    }
+}
+
+void console_sleep_linux( int milliseconds )
+{
+  unsigned int microseconds = 1000 * milliseconds;
+  usleep(microseconds);
 }
 #endif // __linux__

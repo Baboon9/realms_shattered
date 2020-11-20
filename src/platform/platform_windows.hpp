@@ -61,6 +61,11 @@ void folder_create_win32( const std::string &folder_path );
 */
 const bool folder_exists_check_win32( const std::string &folder_path );
 
+/*
+ * Susped program for x milliseconds.
+ */
+void console_sleep_win32( int milliseconds );
+
 #endif // _WIN32
 
 #endif // _PLATFORM_WINDOWS_HPP_

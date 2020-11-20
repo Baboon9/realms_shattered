@@ -276,3 +276,8 @@ void Console::title_set( const std::string &console_title )
 {
    console_title_set( console_title );
 }
+
+void Console::sleep( int miliseconds ) 
+{
+   console_sleep( miliseconds );
+}

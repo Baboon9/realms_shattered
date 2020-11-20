@@ -115,3 +115,14 @@ const bool folder_exists_check( const std::string &folder_path )
 
    return false;
 }
+
+void console_sleep( int milliseconds )
+{
+  #ifdef _WIN32
+    console_sleep_win32( millisecods );
+  #endif
+
+  #ifdef __linux__
+    console_sleep_linux( milliseconds );
+  #endif
+}

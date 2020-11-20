@@ -147,4 +147,9 @@ const bool folder_exists_check_win32( const std::string &folder_path )
    return false;
 }
 
+void console_sleep_win32( int milliseconds )
+{
+  Sleep( milliseconds );  
+}
+
 #endif // _WIN32

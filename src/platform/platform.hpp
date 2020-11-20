@@ -71,4 +71,9 @@ void folder_create_platform( const std::string &folder_path );
 */
 const bool folder_exists_check( const std::string &folder_path );
 
+/*
+ * Suspends execution of program for x miliseconds.
+ */
+void console_sleep( const int miliseconds );
+
 #endif // _PLATFORM_HPP_
