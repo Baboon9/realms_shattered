@@ -55,6 +55,8 @@ const bool Language::commands_load( const std::string &file_name )
          commands_map[ command_map_iter->second ] = CommandTag::COMMAND_OFFSET_X;
       } else if( command_map_iter->first == "tag_command_offset_y" ) {
          commands_map[ command_map_iter->second ] = CommandTag::COMMAND_OFFSET_Y;
+      } else if( command_map_iter->first == "tag_command_bash" ) {
+         commands_map[ command_map_iter->second ] = CommandTag::COMMAND_BASH;
       }
    }
 

@@ -31,4 +31,12 @@ class Attack: public Command
     void delay_set(int step) override; 
 };
 
+class Bash: public Command
+{
+  public:
+    Bash( Actor *origin, Actor *target, ActionLog &action_log, Combat *combat );
+    void execute() override;
+    void delay_set( int step ) override;
+};
+
 #endif

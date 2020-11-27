@@ -106,28 +106,6 @@ void GameState::game_state_rift()
          }
       }
    }
-
-
-    /*
-   // If any entity occupies the current room and player has acted, allow entities their turn.
-   rift = m_game_data.rift_get();
-   if( rift != nullptr &&
-       !rift->m_rooms[ rift->m_room_current ].m_entity_list.empty() &&
-       player_turn_taken ) {
-      Actor *actor( nullptr );
-      if( m_game_data.actor_get( rift->m_rooms[ m_action_log, rift->m_room_current ].m_entity_list[ 0 ]->unique_id_get(), actor ) ) {
-         actor->attack( m_action_log, m_game_data.player_get()->unique_id_get() );
-
-         if( !m_game_data.player_get()->is_alive_get() ) {
-            m_action_log.add_line( m_game_data.player_get()->name_get() + " has been struck down be " + actor->name_get() );
-            m_game_data.rift_destroy();
-            m_game_state_current = GameStateEnum::GAME_STATE_PLAYER_HUB;
-         }
-      }
-   }
-
-   */
-      
 }
 
 void GameState::handle_input(CommandTag command_tag, Rift *rift, Combat *combat, Actor *player, Actor *enemy, const std::string name_room)
@@ -143,6 +121,15 @@ void GameState::handle_input(CommandTag command_tag, Rift *rift, Combat *combat,
          combat->add_command(new Attack{ player, enemy, m_action_log, combat } );
          combat->await_input_set(false);
          Logger(LoggerLevel::LOG_LEVEL_PROGRESS).log() << "New command added " << player->name_get() << " attacks " << enemy->name_get();
+         break;
+      case CommandTag::COMMAND_BASH:
+         if( enemy == nullptr ) {
+            m_action_log.add_line( "There is nothing there to attack");
+            break;
+         }
+         combat->add_command(new Bash{ player, enemy, m_action_log, combat } );
+         combat->await_input_set(false);
+         Logger(LoggerLevel::LOG_LEVEL_PROGRESS).log() << "New command added " << player->name_get() << " bashs " << enemy->name_get();
          break;
       case CommandTag::COMMAND_MOVE:
          if( rift != nullptr ) {

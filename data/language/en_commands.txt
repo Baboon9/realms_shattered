@@ -1,6 +1,7 @@
 
 tag_command_accept:accept
 tag_command_attack:attack
+tag_command_bash:bash
 tag_command_back:back
 tag_command_display:display
 tag_command_help:help
