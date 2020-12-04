@@ -13,10 +13,10 @@ class Command
     int m_delay{ 0 };
     Actor *m_origin;
     Actor *m_target;
-    ActionLog &m_action_log;
+    ActionLog *m_action_log;
     Combat *m_combat;
   public: 
-    Command( Actor *origin, Actor *target, ActionLog &action_log, Combat *combat );
+    Command( Actor *origin, Actor *target, ActionLog *action_log, Combat *combat );
     virtual ~Command() { }
     virtual void execute( ) = 0;
     virtual void delay_set( int step ) = 0;
@@ -26,7 +26,7 @@ class Command
 class Attack: public Command
 {
   public:
-    Attack( Actor *origin, Actor *target, ActionLog &action_log, Combat *combat );
+    Attack( Actor *origin, Actor *target, ActionLog *action_log, Combat *combat );
     void execute() override; 
     void delay_set(int step) override; 
 };
@@ -34,7 +34,7 @@ class Attack: public Command
 class Bash: public Command
 {
   public:
-    Bash( Actor *origin, Actor *target, ActionLog &action_log, Combat *combat );
+    Bash( Actor *origin, Actor *target, ActionLog *action_log, Combat *combat );
     void execute() override;
     void delay_set( int step ) override;
 };

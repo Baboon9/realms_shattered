@@ -31,7 +31,7 @@ void Combat::add_command(Command *command)
 void Combat::next_step( GameState *game_state, const std::string NAME_RIFT_STATE, const std::string name_room )
 {
   ++m_step;
-
+  bool once = false;
   std::vector<Command*> next_command;
   for( auto iter = m_command_queue.begin(); iter != m_command_queue.end(); ++iter ) {
     if( ( *iter )->delay_get( ) == m_step ) {
@@ -40,7 +40,11 @@ void Combat::next_step( GameState *game_state, const std::string NAME_RIFT_STATE
   }
   for( auto iter = next_command.begin(); iter != next_command.end(); ++iter ) {
     (*iter)->execute();
-    game_state->redraw(NAME_RIFT_STATE, name_room);
+    if(!once) {
+      game_state->redraw(NAME_RIFT_STATE, name_room);
+      game_state->redraw(NAME_RIFT_STATE, name_room);
+      once = true;
+    }
   }
 
   if( !m_player->is_alive_get() || !m_enemy->is_alive_get() ) {

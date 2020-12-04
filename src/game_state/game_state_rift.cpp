@@ -98,7 +98,7 @@ void GameState::game_state_rift()
             constexpr int num_awailable_commands{ 1 };
             int picked_command = rand() % 1;
             switch( picked_command ) {
-              case 0 : combat->add_command( new Attack{ enemy, player, m_action_log, combat } );
+              case 0 : combat->add_command( new Attack{ enemy, player, &m_action_log, combat } );
                        Logger( LoggerLevel::LOG_LEVEL_PROGRESS ) .log() << "New command added " << enemy->name_get() << " attacks " << player->name_get(); 
                        break;
               default : Logger( LoggerLevel::LOG_LEVEL_ERROR ).log() << "During combat: Enemys random command invalid"; 
@@ -118,7 +118,7 @@ void GameState::handle_input(CommandTag command_tag, Rift *rift, Combat *combat,
             m_action_log.add_line( "There is nothing there to attack");
             break;
          }
-         combat->add_command(new Attack{ player, enemy, m_action_log, combat } );
+         combat->add_command(new Attack{ player, enemy, &m_action_log, combat } );
          combat->await_input_set(false);
          Logger(LoggerLevel::LOG_LEVEL_PROGRESS).log() << "New command added " << player->name_get() << " attacks " << enemy->name_get();
          break;
@@ -127,7 +127,7 @@ void GameState::handle_input(CommandTag command_tag, Rift *rift, Combat *combat,
             m_action_log.add_line( "There is nothing there to attack");
             break;
          }
-         combat->add_command(new Bash{ player, enemy, m_action_log, combat } );
+         combat->add_command(new Bash{ player, enemy, &m_action_log, combat } );
          combat->await_input_set(false);
          Logger(LoggerLevel::LOG_LEVEL_PROGRESS).log() << "New command added " << player->name_get() << " bashs " << enemy->name_get();
          break;
