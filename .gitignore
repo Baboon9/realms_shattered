@@ -11,3 +11,6 @@ log.txt
 *.vcxproj*
 *.sln
 *.vs*
+
+#vim files
+.project_alt.json
