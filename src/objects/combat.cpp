@@ -5,7 +5,10 @@ int Combat::player_unique_id_get( )
   return m_player->unique_id_get(); 
 }
 
-Combat::Combat(Actor *player, Actor *enemy): m_player { player }, m_enemy { enemy } { }
+void Combat::init(Actor *player, Actor *enemy){
+  m_player = player;
+  m_enemy = enemy;
+}
 
 bool Combat::await_enemy_command_get() 
 { 
@@ -28,10 +31,9 @@ void Combat::add_command(Command *command)
   m_command_queue.push_back(command);
 }
 
-void Combat::next_step( GameState *game_state, const std::string NAME_RIFT_STATE, const std::string name_room )
+void Combat::next_step()
 {
   ++m_step;
-  bool once = false;
   std::vector<Command*> next_command;
   for( auto iter = m_command_queue.begin(); iter != m_command_queue.end(); ++iter ) {
     if( ( *iter )->delay_get( ) == m_step ) {
@@ -40,15 +42,11 @@ void Combat::next_step( GameState *game_state, const std::string NAME_RIFT_STATE
   }
   for( auto iter = next_command.begin(); iter != next_command.end(); ++iter ) {
     (*iter)->execute();
-    if(!once) {
-      game_state->redraw(NAME_RIFT_STATE, name_room);
-      game_state->redraw(NAME_RIFT_STATE, name_room);
-      once = true;
-    }
+    m_redraw = true;
   }
 
   if( !m_player->is_alive_get() || !m_enemy->is_alive_get() ) {
-    is_over = true;
+    m_is_over = true;
   }
 }
 
@@ -66,5 +64,30 @@ bool Combat::await_input_get()
 
 bool Combat::is_over_get() 
 { 
-  return is_over; 
+  return m_is_over; 
+}
+
+bool Combat::redraw_get()
+{
+  return m_redraw;
+}
+
+void Combat::redraw_set(bool b)
+{
+  m_redraw = b;
+}
+
+Actor* Combat::player_get()
+{
+  return m_player;
+}
+
+Actor* Combat::enemy_get()
+{
+  return m_enemy;
+}
+
+void is_over_set( bool b ) 
+{ 
+  m_is_over = b;
 }

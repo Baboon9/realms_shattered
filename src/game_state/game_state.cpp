@@ -94,6 +94,9 @@ void GameState::run()
          case GameStateEnum::GAME_STATE_RIFT:
             game_state_rift();
             break;
+         case GameStateEnum::GAME_STATE_COMBAT:
+            game_state_combat();
+            break;
       }
    }
 }

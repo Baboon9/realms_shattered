@@ -10,8 +10,7 @@
 #include "../engine_systems/language.hpp"
 #include "../engine_systems/user_input.hpp"
 #include "../engine_systems/user_interface.hpp"
-
-class Combat;
+#include "../objects/combat.hpp"
 
 enum class GameStateEnum {
    GAME_STATE_DEV_MENU,
@@ -19,7 +18,8 @@ enum class GameStateEnum {
    GAME_STATE_LOAD,
    GAME_STATE_MAIN_MENU,
    GAME_STATE_PLAYER_HUB,
-   GAME_STATE_RIFT
+   GAME_STATE_RIFT,
+   GAME_STATE_COMBAT
 };
 
 class GameState final {
@@ -49,6 +49,7 @@ private:
    Language m_language;
    UserInput m_user_input;
    UserInterface m_user_interface;
+   Combat m_combat{};
 
    /*
    *  The developer menu allows the player to use developer commands to do various things. Essentially a cheat menu used to assist in development.
@@ -79,7 +80,12 @@ private:
    *  Here the player will explore generated rifts composed of rooms.
    */
    void game_state_rift();
-    
+  
+   /*
+    * This is Combat
+    */
+   void game_state_combat();
+
    /*
     * Redraw the screen and ask for user imput.
     */
